@@ -1,10 +1,10 @@
 # sha256
 sha256 with hash difficulty.
 
-##哈希生成算法
+## 哈希生成算法
 原生sha256
 
-##哈希有效算法
+## 哈希有效算法
 - 方法一：通过Sprintf将[]byte转换成16进制表示的string，再按位计算是否为0，fmt有反射，效率可能会低。
 ```go
 func difficulty(hash [Size]byte, d int) bool {
@@ -37,7 +37,7 @@ func difficulty(hash [Size]byte, d int) bool {
 }
 ```
 
-##结果对比
+## 结果对比
 哈希数据: []byte("hello world")+[]byte(nonce)
 
 |    method  |nonce| difficulty |timecost|result  |
