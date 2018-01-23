@@ -2,7 +2,15 @@
 sha256 with hash difficulty.
 
 ## 哈希生成算法
-原生sha256
+原生sha256 "crypto/sha256"
+
+## 函数功能
+``` go
+func HashwithDifficulty(data []byte, d int) (result [Size]byte, nonce int64)
+
+// 使用
+sum, nonce := HashwithDifficulty([]byte("hello world"), 3)
+```
 
 ## 哈希有效算法
 - 方法一：通过Sprintf将[]byte转换成16进制表示的string，再按位计算是否为0，fmt有反射，效率可能会低。
