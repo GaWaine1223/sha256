@@ -6,14 +6,19 @@ package sha256
 import (
 	"crypto/sha256"
 	"strconv"
+	"sync/atomic"
 )
 
 // Size The size of a SHA256 checksum in bytes.
 const Size = 32
+var stop int32
 
 // HashwithDifficulty ...
 func HashwithDifficulty(data []byte, d int) (result [Size]byte, nonce int64) {
-	for nonce = 0; ; nonce++ {
+	for nonce = 1; ; nonce++ {
+		if atomic.LoadInt32(&stop) == 1 {
+			return result, 0
+		}
 		str := strconv.FormatInt(nonce, 10)
 		b := append(data, []byte(str)...)
 		result = sha256.Sum256(b)
@@ -38,4 +43,8 @@ func difficulty(hash [Size]byte, d int) bool {
 		}
 	}
 	return true
+}
+
+func StopHash() bool {
+	return atomic.CompareAndSwapInt32(&stop, 0, 1)
 }

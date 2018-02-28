@@ -56,3 +56,11 @@ func difficulty(hash [Size]byte, d int) bool {
 | 2          |6742 |  3         | 0.009  |000fd9024e22437d38075ad87a7ca2649e66384ee67943a66eef482f5fe437c7|
 | 1          |49967|  4         |0.059   |00004921c6f7acd81acd24a477fd29d1effeb58ba6943007e63420a6d2b0e973|
 | 2          |49967|  4         | 0.025  |00004921c6f7acd81acd24a477fd29d1effeb58ba6943007e63420a6d2b0e973|
+
+Change Log
+2018/02/28 增加停止计算hash方法
+```
+func StopHash() bool {
+	return atomic.CompareAndSwapInt32(&stop, 0, 1)
+}
+```
