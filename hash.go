@@ -11,6 +11,7 @@ import (
 
 // Size The size of a SHA256 checksum in bytes.
 const Size = 32
+
 var stop int32
 
 // HashwithDifficulty ...
@@ -45,6 +46,12 @@ func difficulty(hash [Size]byte, d int) bool {
 	return true
 }
 
+// StopHash ...
 func StopHash() bool {
 	return atomic.CompareAndSwapInt32(&stop, 0, 1)
+}
+
+// Verification ...
+func Verification(data []byte, hash [Size]byte) bool {
+	return hash == sha256.Sum256(data)
 }
