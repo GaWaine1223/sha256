@@ -7,6 +7,7 @@ import (
 	"crypto/sha256"
 	"strconv"
 	"sync/atomic"
+	"fmt"
 )
 
 // Size The size of a SHA256 checksum in bytes.
@@ -51,7 +52,7 @@ func StopHash() bool {
 	return atomic.CompareAndSwapInt32(&stop, 0, 1)
 }
 
-// Verification ...
-func Verification(data []byte, hash [Size]byte) bool {
-	return hash == sha256.Sum256(data)
+// Verification to test if the data's hash is equal to a string
+func Verification(data []byte, hash string) bool {
+	return hash == fmt.Sprint(sha256.Sum256(data))
 }
